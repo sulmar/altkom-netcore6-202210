@@ -1,0 +1,43 @@
+﻿@protocol = http
+@hostname = localhost
+@port = 5000
+
+@baseUrl = {{protocol}}://{{hostname}}:{{port}}
+
+
+GET {{baseUrl}}/api/customers
+
+###
+
+GET {{baseUrl}}/api/customers/1
+
+###
+
+HEAD {{baseUrl}}/api/customers/1
+
+###
+
+POST {{baseUrl}}/api/customers
+Content-Type: application/json
+
+{
+	"FirstName":"John",
+	"LastName":"Smith"
+}
+
+###
+
+PUT {{baseUrl}}/api/customers/1
+Content-Type: application/json
+
+{
+	"Id": 1,
+	"FirstName":"John",
+	"LastName":"Smith"
+}
+
+###
+
+DELETE {{baseUrl}}/api/customers/1
+
+###
