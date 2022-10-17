@@ -1,6 +1,6 @@
 ﻿namespace Altkom.Net6.Domain
 {
-    
+
     public class Customer : BaseEntity
     {        
         public string FirstName { get; set; }

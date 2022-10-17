@@ -6,15 +6,27 @@ using System.Threading.Tasks;
 
 namespace Altkom.Net6.Domain
 {
-    public interface ICustomerRepository
-    {
-        IEnumerable<Customer> Get();
-        Customer Get(int id);
-        bool Exists(int id);
 
-        Customer GetByEmail(string email);
-        void Add(Customer customer);
-        void Update(Customer customer);
+    // Szablon interfejsu
+    public interface IEntityRepository<TEntity>
+        where TEntity : BaseEntity
+    {
+        IEnumerable<TEntity> Get();
+        TEntity Get(int id);
+        bool Exists(int id);
+        void Add(TEntity entity);
+        void Update(TEntity entity);
         void Remove(int id);
+    }
+
+    public interface ICustomerRepository : IEntityRepository<Customer>
+    {
+        Customer GetByEmail(string email);
+    }
+
+    public interface IProductRepository : IEntityRepository<Product>
+    {
+        Product GetByCode(string code);
+        IEnumerable<Product> GetByColor(string color);
     }
 }
