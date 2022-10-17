@@ -109,11 +109,17 @@ app.MapHead("/api/customers/{id}", (int id, ICustomerRepository repository) =>
 // Content-Type: application/json-patch+json
 
 // dotnet add package Microsoft.AspNetCore.JsonPatch --version 6.0.10
-app.MapPatch("/api/customers/{id}", (int id, 
-    JsonPatchDocument<Customer> patchCustomer, 
+app.MapPatch("/api/customers/{id}", (int id,     
     ICustomerRepository repository) =>
 {
+    // TODO: rozwi¹zaæ problem deserializacji
+    JsonPatchDocument patchDocument = new JsonPatchDocument();
+    patchDocument.Replace("Salary", 1500);
 
+    var customer = repository.Get(id);
+    patchDocument.ApplyTo(customer);
+
+    throw new NotImplementedException();
 });
 
 app.MapGet("/lambda", lambda);
