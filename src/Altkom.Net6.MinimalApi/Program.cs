@@ -1,27 +1,24 @@
 using Altkom.Net6.Domain;
+using Altkom.Net6.Infrastructure;
 using Altkom.Net6.MinimalApi;
+using Microsoft.AspNetCore.Mvc;
 
-var app = WebApplication.Create();
+// var app = WebApplication.Create();
+
+var builder = WebApplication.CreateBuilder();
+
+builder.Services.AddSingleton<ICustomerRepository, InMemoryCustomerRepository>(); // Rejestrowanie w konterze wstrzykiwania zale¿noœci
+
+var app = builder.Build();
+    
 
 var lambda = () => "Hello from lambda variable";
 string LocalFunction() => "Hello from local function";
 
 app.MapGet("/", () => "Hello World!");
 
-app.MapGet("/api/customers", () =>
-{
-    var customers = new List<Customer>
-    {
-        new Customer { Id = 1, FirstName = "John", LastName = "Smith", Email="john@domain.com", Gender = Gender.Male, Salary = 1000 },
-        new Customer { Id = 2, FirstName = "Kate", LastName = "Smith", Email="kate@domain.com", Gender = Gender.Female, Salary = 2000 },
-        new Customer { Id = 3, FirstName = "Bob", LastName = "Smith", Email="bob@domain.com", Gender = Gender.Male, Salary = 3000 },
-    };
-
-    return customers;
-});
-
-
-app.MapGet("/api/customers/{id:int}", (int id) => $"Hello Customer Id = {id}!");
+app.MapGet("/api/customers", (ICustomerRepository repository) => repository.Get());
+app.MapGet("/api/customers/{id:int}", (ICustomerRepository repository, int id) => repository.Get(id));
 
 app.MapGet("/lambda", lambda);
 app.MapGet("/function", LocalFunction);
