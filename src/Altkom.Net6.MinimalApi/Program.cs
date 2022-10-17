@@ -18,7 +18,20 @@ string LocalFunction() => "Hello from local function";
 app.MapGet("/", () => "Hello World!");
 
 app.MapGet("/api/customers", (ICustomerRepository repository) => repository.Get());
-app.MapGet("/api/customers/{id:int}", (ICustomerRepository repository, int id) => repository.Get(id));
+
+app.MapGet("/api/customers/{id:int}", (ICustomerRepository repository, int id) =>
+{
+    var customer = repository.Get(id);
+
+    if (customer == null)
+    {
+        return Results.NotFound();
+    }
+    else
+    {        
+        return Results.Ok(customer);
+    }
+});
 
 app.MapGet("/lambda", lambda);
 app.MapGet("/function", LocalFunction);

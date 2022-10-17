@@ -10,5 +10,6 @@ namespace Altkom.Net6.Domain
     {
         IEnumerable<Customer> Get();
         Customer Get(int id);
+        bool Exists(int id);
     }
 }

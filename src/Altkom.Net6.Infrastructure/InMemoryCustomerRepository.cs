@@ -25,6 +25,11 @@ namespace Altkom.Net6.Infrastructure
             //};
         }
 
+        public bool Exists(int id)
+        {
+            return _customers.ContainsKey(id);
+        }
+
         public IEnumerable<Customer> Get()
         {
             return _customers.Values;
@@ -32,7 +37,11 @@ namespace Altkom.Net6.Infrastructure
 
         public Customer Get(int id)
         {
-            return _customers[id];
+            _customers.TryGetValue(id, out Customer customer);
+
+            return customer;
+
+            //return _customers[id]; // Jeśli nie znajdzie to pojawia się Exception
         }
     }
 }
