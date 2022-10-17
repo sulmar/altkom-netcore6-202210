@@ -25,6 +25,15 @@ namespace Altkom.Net6.Infrastructure
             //};
         }
 
+        public void Add(Customer customer)
+        {
+            int id = _customers.Keys.Max();
+
+            customer.Id = ++id;
+
+            _customers.Add(id, customer);
+        }
+
         public bool Exists(int id)
         {
             return _customers.ContainsKey(id);
@@ -42,6 +51,23 @@ namespace Altkom.Net6.Infrastructure
             return customer;
 
             //return _customers[id]; // Jeśli nie znajdzie to pojawia się Exception
+        }
+
+        public Customer GetByEmail(string email)
+        {
+            return _customers.Values.SingleOrDefault(c=>c.Email == email);  // Linq
+        }
+
+        public void Remove(int id)
+        {
+            _customers.Remove(id);
+        }
+
+        public void Update(Customer customer)
+        {
+            int id = customer.Id;
+            Remove(customer.Id);            
+            _customers.Add(id, customer);            
         }
     }
 }
