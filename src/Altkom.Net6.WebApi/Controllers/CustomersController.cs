@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 namespace Altkom.Net6.WebApi.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]    
+    [Route("api/[controller]")]
     public class CustomersController : ControllerBase
     {
         private readonly ICustomerRepository repository;
@@ -20,11 +20,11 @@ namespace Altkom.Net6.WebApi.Controllers
         // GET api/customers
 
         [HttpGet]
-        public IEnumerable<Customer> Get()
+        public ActionResult<IEnumerable<Customer>> Get()
         {
             var customers = repository.Get();
 
-            return customers;
+            return Ok(customers);
         }
 
         // GET api/customers/{id}
@@ -62,10 +62,10 @@ namespace Altkom.Net6.WebApi.Controllers
 
         // GET api/customers?email={email}&email={email}&email={email} // Query String
         [HttpGet("email")]
-        public ActionResult<Customer> GetByEmail([FromQuery]string[] email)
+        public ActionResult<Customer> GetByEmail([FromQuery] string[] email)
         {
             throw new NotImplementedException();
-            
+
             //var customer = repository.GetByEmail(email);
 
             //if (customer == null)
@@ -111,6 +111,8 @@ namespace Altkom.Net6.WebApi.Controllers
 
             return Ok();
         }
+
+       
 
     }
 }

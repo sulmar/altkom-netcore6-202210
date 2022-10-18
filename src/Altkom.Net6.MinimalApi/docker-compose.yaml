@@ -1,0 +1,10 @@
+﻿version: "3.9"
+services:
+
+  jaeger:
+    image: jaegertracing/all-in-one
+    ports:
+      - "13133:13133" # health_check extension
+      - "16686:16686" # serve frontend
+      - "4317:4317"   # Otlp
+ 

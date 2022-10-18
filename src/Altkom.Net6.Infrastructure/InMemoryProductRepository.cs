@@ -26,5 +26,10 @@ namespace Altkom.Net6.Infrastructure
         {
             return _entities.Values.Where(e => e.Color.Equals(color, StringComparison.OrdinalIgnoreCase));
         }
+
+        public IEnumerable<Product> GetByCustomer(int customerId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

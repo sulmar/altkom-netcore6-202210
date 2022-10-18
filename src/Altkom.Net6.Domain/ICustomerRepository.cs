@@ -28,5 +28,6 @@ namespace Altkom.Net6.Domain
     {
         Product GetByCode(string code);
         IEnumerable<Product> GetByColor(string color);
+        IEnumerable<Product> GetByCustomer(int customerId);
     }
 }

@@ -2,6 +2,7 @@
 using Altkom.Net6.MinimalApi.Extensions;
 using FluentValidation;
 using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Mvc;
 using System.Net.Mime;
 using System.Text;
 
@@ -53,12 +54,21 @@ namespace Altkom.Net6.MinimalApi
                     return Results.Ok(customer);
             });
 
-            app.MapPost("/api/customers", (Customer customer, ICustomerRepository repository, IValidator<Customer> validator) =>
+            app.MapPost("/api/customers", (Customer customer, 
+                ICustomerRepository repository, 
+                IValidator<Customer> validator,
+                [FromServices] ILogger<Program> logger
+                ) =>
             {
                 var validationResult = validator.Validate(customer);
 
                 if (!validationResult.IsValid)
                 {
+                    // zła praktyka
+                    // logger.LogInformation($"Invalid customer {customer.Id}");
+
+                    logger.LogInformation("Invalid customer {Id}", customer.Id);
+
                     return Results.ValidationProblem(validationResult.ToDictionary());
                 }
 

@@ -1,37 +1,53 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="wwwroot\images\netcore-logo.png" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Remove="wwwroot\images\netcore-logo.png" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Include="wwwroot\pdf\lorem-ipsum.pdf" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="wwwroot\pdf\lorem-ipsum.pdf" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Altkom.Net6.Domain\Altkom.Net6.Domain.csproj" />
-    <ProjectReference Include="..\Altkom.Net6.Infrastructure\Altkom.Net6.Infrastructure.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Altkom.Net6.Domain\Altkom.Net6.Domain.csproj" />
+		<ProjectReference Include="..\Altkom.Net6.Infrastructure\Altkom.Net6.Infrastructure.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="FluentValidation" Version="11.2.2" />
-    <PackageReference Include="Microsoft.AspNetCore.JsonPatch" Version="6.0.10" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="FluentValidation" Version="11.2.2" />
+		<PackageReference Include="Microsoft.AspNetCore.JsonPatch" Version="6.0.10" />
+		<PackageReference Include="Serilog.AspNetCore" Version="6.0.1" />
+		<PackageReference Include="OpenTelemetry.Exporter.Console" Version="1.4.0-beta.1" />
+		<PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.4.0-beta.1" />
+		<PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.0.0-rc9.7" />
+		<PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.0.0-rc9.7" />
+		<PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.0.0-rc9.7" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Content Update="wwwroot\images\netcore-logo.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
+	<ItemGroup>
+		<Content Update="wwwroot\images\netcore-logo.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="uploads\" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="uploads\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="docker-compose.yaml">
+			<Generator></Generator>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+	</ItemGroup>
 
 </Project>

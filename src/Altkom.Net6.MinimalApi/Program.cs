@@ -5,6 +5,11 @@ using Altkom.Net6.MinimalApi.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
+using Serilog;
+using Serilog.Formatting.Compact;
 
 // var app = WebApplication.Create();
 
@@ -28,15 +33,49 @@ builder.Configuration.AddXmlFile("appsettings.xml", optional: true);
 builder.Configuration.AddIniFile("appsettings.ini", optional: true);
 
 string myKey = builder.Configuration["MyKey"];
-Console.WriteLine(myKey);
+
 
 string parameter1 = builder.Configuration["Sekcja1:Parametr1"];
 int subparameter1 = int.Parse(builder.Configuration["Sekcja1:Parametr2:Podparametr1"]);
 
-Console.WriteLine(parameter1);
-Console.WriteLine(subparameter1);
+// domyslnie
+// builder.Logging.AddConsole();
+
+// dotnet add package Serilog.AspNetCore
+
+var logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day)
+    .WriteTo.File(new CompactJsonFormatter(), "logs/log.json", rollingInterval: RollingInterval.Day)
+    .CreateLogger();
+
+// builder.Logging.AddSerilog(logger);
+
+// dotnet add package OpenTelemetry.Instrumentation.AspNetCore --prelease
+// dotnet add package OpenTelemetry.Instrumentation.Http --prelease
+// dotnet add package OpenTelemetry.Extensions.Hosting --prelease
+// dotnet add package OpenTelemetry.Exporter.Console --prelease
+// dotnet add package OpenTelemetry.Exporter.OpenTelemetryProtocol --prelease
+
+builder.Services.AddOpenTelemetryTracing(builder =>
+{
+    builder
+        .AddConsoleExporter()
+        .AddOtlpExporter(options => options.Endpoint = new Uri("http://localhost:4317"))
+        .AddSource("MyMinimalApi")
+        .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName: "MyMinimalApi", serviceVersion: "1.0"))
+        .AddAspNetCoreInstrumentation()
+        .AddHttpClientInstrumentation();
+});
+
 
 var app = builder.Build();
+
+app.Logger.LogTrace(myKey);
+app.Logger.LogTrace(parameter1);
+app.Logger.LogTrace($"{subparameter1}");
+
+app.Logger.LogInformation("The application started!");
 
 app.MapBasicEndpoints();
 app.MapCustomerEndpoints();
