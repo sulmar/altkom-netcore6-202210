@@ -1,0 +1,11 @@
+﻿<Configuration>
+
+	<Sekcja1>
+		<Parametr1>from xml</Parametr1>
+		<Parametr2>
+			<Podparametr1>789</Podparametr1>
+		</Parametr2>
+	</Sekcja1>
+
+
+</Configuration>
