@@ -2,6 +2,7 @@ using Altkom.Net6.Domain;
 using Altkom.Net6.Domain.Validators;
 using Altkom.Net6.Infrastructure;
 using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -15,6 +16,9 @@ builder.Services.AddSingleton<ICustomerRepository, InMemoryCustomerRepository>()
 builder.Services.AddScoped<IValidator<Customer>, CustomerValidator>();
 
 builder.Services.AddControllers();
+
+// dotnet add package FluentValidation.AspNetCore
+builder.Services.AddFluentValidationAutoValidation();
 
 // dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
 

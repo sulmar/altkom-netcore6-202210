@@ -81,7 +81,7 @@ namespace Altkom.Net6.MinimalApi
                 // Dobra praktyka
                 return Results.CreatedAtRoute("GetCustomerById", new { customer.Id }, customer); // Dodaje do odpowiedzi nagłówek Location: {link}
             })
-                .RequireAuthorization()
+                
                 ;
 
             app.MapGet("/api/customers/{id}/link", (int id, LinkGenerator linkGenerator)
