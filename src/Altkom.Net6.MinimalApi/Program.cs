@@ -12,6 +12,10 @@ var builder = WebApplication.CreateBuilder();
 
 builder.Services.RegisterServices();
 
+string envName =  Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+
+Console.WriteLine(envName);
+
 // Domyœlnie
 // builder.Configuration.AddJsonFile("appsettings.json", optional: false);
 // builder.Configuration.AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true);
