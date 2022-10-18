@@ -17,5 +17,8 @@ var app = builder.Build();
 app.MapBasicEndpoints();
 app.MapCustomerEndpoints();
 app.MapProductEndpoints();
+app.MapFilesEndpoints();
+
+app.UseStaticFiles();
 
 app.Run("http://localhost:5000");

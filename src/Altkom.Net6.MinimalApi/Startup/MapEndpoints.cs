@@ -2,6 +2,7 @@
 using Altkom.Net6.MinimalApi.Extensions;
 using FluentValidation;
 using Microsoft.AspNetCore.JsonPatch;
+using System.Net.Mime;
 
 namespace Altkom.Net6.MinimalApi
 {
@@ -53,7 +54,7 @@ namespace Altkom.Net6.MinimalApi
 
             app.MapPost("/api/customers", (Customer customer, ICustomerRepository repository, IValidator<Customer> validator) =>
             {
-                var validationResult =  validator.Validate(customer);
+                var validationResult = validator.Validate(customer);
 
                 if (!validationResult.IsValid)
                 {
@@ -151,6 +152,42 @@ namespace Altkom.Net6.MinimalApi
 
             app.MapGet("/hello", () => HelloHandlers.Hello());
             app.MapGet("/hello/{name:alpha}", (string name) => HelloHandlers.Hello(name));
+
+            return app;
+        }
+
+        public static WebApplication MapFilesEndpoints(this WebApplication app)
+        {
+            app.MapGet("/reports/{id}", (int id) =>
+            {
+                string filename = Path.Combine(app.Environment.ContentRootPath, "wwwroot", "pdf", "lorem-ipsum.pdf");
+                return Results.File(filename, MediaTypeNames.Application.Pdf, fileDownloadName: "lorem-ipsum.pdf");
+            });
+
+            app.MapGet("/upload", (HttpRequest request) =>
+            {
+                if (!request.HasFormContentType)
+                {
+                    return Results.BadRequest();
+                }
+
+                var form = request.Form;
+                var file = form.Files["file"];
+
+                if (file is null)
+                {
+                    return Results.BadRequest();
+                }
+
+                var uploads = Path.Combine("uploads", file.FileName);
+                using var uploadStream = file.OpenReadStream();  // using { } wywołuje Dipose(), a Dispose() wywołuje Flush()
+                using var fileStream = File.OpenWrite(uploads);
+                
+                uploadStream.CopyTo(fileStream);
+
+                return Results.NoContent();
+
+            });
 
             return app;
         }
