@@ -3,6 +3,7 @@ using Altkom.Net6.MinimalApi.Extensions;
 using FluentValidation;
 using Microsoft.AspNetCore.JsonPatch;
 using System.Net.Mime;
+using System.Text;
 
 namespace Altkom.Net6.MinimalApi
 {
@@ -186,6 +187,27 @@ namespace Altkom.Net6.MinimalApi
                 uploadStream.CopyTo(fileStream);
 
                 return Results.NoContent();
+
+            });
+
+            return app;
+        }
+    
+    
+        public static WebApplication MapHtmlEndpoints(this WebApplication app)
+        {
+            app.MapGet("/html", () =>
+            {
+                string html = @"
+                <html>
+                    <head><title>Mini HTML</title></head>
+                    <body>
+                        <h1>Hello HTML!<h1>
+                        <p>Lorem ipsum<p>
+                    </body>
+                </html>";
+
+                return Results.Text(html, contentType: MediaTypeNames.Text.Html);
 
             });
 

@@ -18,6 +18,7 @@ app.MapBasicEndpoints();
 app.MapCustomerEndpoints();
 app.MapProductEndpoints();
 app.MapFilesEndpoints();
+app.MapHtmlEndpoints();
 
 app.UseStaticFiles();
 
