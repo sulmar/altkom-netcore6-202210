@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Altkom.Net6.Domain", "Altko
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Altkom.Net6.Infrastructure", "Altkom.Net6.Infrastructure\Altkom.Net6.Infrastructure.csproj", "{E67F2B44-7072-45D7-AA20-E9572FC08C2D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Altkom.Net6.WebApi", "Altkom.Net6.WebApi\Altkom.Net6.WebApi.csproj", "{A9572ACD-E47C-4D70-AB2D-7265BB654859}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Altkom.Net6.WebApi", "Altkom.Net6.WebApi\Altkom.Net6.WebApi.csproj", "{A9572ACD-E47C-4D70-AB2D-7265BB654859}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Altkom.Net6.RawApi", "Altkom.Net6.RawApi\Altkom.Net6.RawApi.csproj", "{CA3713A7-938D-4BBF-92DE-EFB1D1FCD1CC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{A9572ACD-E47C-4D70-AB2D-7265BB654859}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9572ACD-E47C-4D70-AB2D-7265BB654859}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9572ACD-E47C-4D70-AB2D-7265BB654859}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA3713A7-938D-4BBF-92DE-EFB1D1FCD1CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA3713A7-938D-4BBF-92DE-EFB1D1FCD1CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA3713A7-938D-4BBF-92DE-EFB1D1FCD1CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA3713A7-938D-4BBF-92DE-EFB1D1FCD1CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

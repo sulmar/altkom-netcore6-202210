@@ -20,6 +20,16 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
+// Warstwa poœrednia (Middleware)
+app.Use(async (context, next) =>
+{
+    Console.WriteLine($"{context.Request.Method} {context.Request.Path}");
+
+    await next();
+
+    Console.WriteLine($"{context.Response.StatusCode}");
+});
+
 app.MapControllers();
 
 app.Run();
