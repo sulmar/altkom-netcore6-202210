@@ -15,6 +15,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Altkom.Net6.WebApi", "Altko
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Altkom.Net6.RawApi", "Altkom.Net6.RawApi\Altkom.Net6.RawApi.csproj", "{CA3713A7-938D-4BBF-92DE-EFB1D1FCD1CC}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthService.Domain", "AuthService.Domain\AuthService.Domain.csproj", "{96721EDD-471E-4CF2-8D25-EAED70569066}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthService.Infrastructure", "AuthService.Infrastructure\AuthService.Infrastructure.csproj", "{F20AEE70-7032-4763-B1B1-FB8678F157AE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthService.Api", "AuthService.Api\AuthService.Api.csproj", "{90798311-72AE-4630-8244-A1A5D7CEE474}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +51,18 @@ Global
 		{CA3713A7-938D-4BBF-92DE-EFB1D1FCD1CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA3713A7-938D-4BBF-92DE-EFB1D1FCD1CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA3713A7-938D-4BBF-92DE-EFB1D1FCD1CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96721EDD-471E-4CF2-8D25-EAED70569066}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96721EDD-471E-4CF2-8D25-EAED70569066}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96721EDD-471E-4CF2-8D25-EAED70569066}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96721EDD-471E-4CF2-8D25-EAED70569066}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F20AEE70-7032-4763-B1B1-FB8678F157AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F20AEE70-7032-4763-B1B1-FB8678F157AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F20AEE70-7032-4763-B1B1-FB8678F157AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F20AEE70-7032-4763-B1B1-FB8678F157AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90798311-72AE-4630-8244-A1A5D7CEE474}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90798311-72AE-4630-8244-A1A5D7CEE474}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90798311-72AE-4630-8244-A1A5D7CEE474}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90798311-72AE-4630-8244-A1A5D7CEE474}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

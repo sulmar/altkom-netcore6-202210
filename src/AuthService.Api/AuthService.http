@@ -1,0 +1,13 @@
+﻿@hostname = localhost
+@port = 5101
+@contentType = application/json
+
+POST https://{{hostname}}:{{port}}/api/token/create
+Content-Type: {{contentType}}
+
+{
+    "Login":"john",
+    "Password":"123"
+}
+
+###
