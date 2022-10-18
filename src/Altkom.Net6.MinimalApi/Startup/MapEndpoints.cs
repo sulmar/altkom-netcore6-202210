@@ -15,7 +15,8 @@ namespace Altkom.Net6.MinimalApi
         // Map To Route
         public static WebApplication MapCustomerEndpoints(this WebApplication app)
         {
-            app.MapGet("/api/customers", (ICustomerRepository repository) => repository.Get());
+            app.MapGet("/api/customers", (ICustomerRepository repository) => repository.Get())
+                .RequireAuthorization();
 
             // Przykład z użyciem funkcji
             //app.MapGet("/api/customers/{id:int}", (ICustomerRepository repository, int id) =>
@@ -79,7 +80,9 @@ namespace Altkom.Net6.MinimalApi
 
                 // Dobra praktyka
                 return Results.CreatedAtRoute("GetCustomerById", new { customer.Id }, customer); // Dodaje do odpowiedzi nagłówek Location: {link}
-            });
+            })
+                .RequireAuthorization()
+                ;
 
             app.MapGet("/api/customers/{id}/link", (int id, LinkGenerator linkGenerator)
                 => $"The link to customer {linkGenerator.GetPathByName("GetCustomerById", values: new { id })}");

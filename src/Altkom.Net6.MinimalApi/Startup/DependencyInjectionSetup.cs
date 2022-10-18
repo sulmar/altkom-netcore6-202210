@@ -2,6 +2,9 @@
 using Altkom.Net6.Domain.Validators;
 using Altkom.Net6.Infrastructure;
 using FluentValidation;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace Altkom.Net6.MinimalApi
 {
@@ -16,6 +19,7 @@ namespace Altkom.Net6.MinimalApi
             services.AddScoped<IValidator<Customer>, CustomerValidator>();
 
             return services;
+          
         }
     }
 }

@@ -2,14 +2,17 @@ using Altkom.Net6.Domain;
 using Altkom.Net6.Infrastructure;
 using Altkom.Net6.MinimalApi;
 using Altkom.Net6.MinimalApi.Extensions;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Serilog;
 using Serilog.Formatting.Compact;
+using System.Text;
 
 // var app = WebApplication.Create();
 
@@ -69,6 +72,31 @@ builder.Services.AddOpenTelemetryTracing(builder =>
 });
 
 
+// dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
+
+var key = Encoding.UTF8.GetBytes(builder.Configuration["SecretKey"]);
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(key),
+            ValidateIssuer = true,
+            ValidIssuer = "http://myauthapi.com",
+            ValidateAudience = true,
+            ValidAudience = "http://myshopper.com"
+        };
+    });
+;
+
+builder.Services.AddAuthorization();
+
 var app = builder.Build();
 
 app.Logger.LogTrace(myKey);
@@ -76,6 +104,9 @@ app.Logger.LogTrace(parameter1);
 app.Logger.LogTrace($"{subparameter1}");
 
 app.Logger.LogInformation("The application started!");
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapBasicEndpoints();
 app.MapCustomerEndpoints();
