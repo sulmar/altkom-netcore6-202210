@@ -1,5 +1,7 @@
 ﻿using Altkom.Net6.Domain;
+using Altkom.Net6.Domain.Validators;
 using Altkom.Net6.Infrastructure;
+using FluentValidation;
 
 namespace Altkom.Net6.MinimalApi
 {
@@ -10,6 +12,8 @@ namespace Altkom.Net6.MinimalApi
             services.AddSingleton<ICustomerRepository, InMemoryCustomerRepository>(); // Rejestrowanie w konterze wstrzykiwania zależności
 
             services.AddSingleton<IProductRepository, InMemoryProductRepository>(); // Rejestrowanie w konterze wstrzykiwania zależności
+
+            services.AddScoped<IValidator<Customer>, CustomerValidator>();
 
             return services;
         }

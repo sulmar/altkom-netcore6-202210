@@ -1,5 +1,6 @@
 ﻿using Altkom.Net6.Domain;
 using Altkom.Net6.MinimalApi.Extensions;
+using FluentValidation;
 using Microsoft.AspNetCore.JsonPatch;
 
 namespace Altkom.Net6.MinimalApi
@@ -7,6 +8,8 @@ namespace Altkom.Net6.MinimalApi
 
     public static class MapEndpoints
     {
+
+        // Map To Route
         public static WebApplication MapCustomerEndpoints(this WebApplication app)
         {
             app.MapGet("/api/customers", (ICustomerRepository repository) => repository.Get());
@@ -48,8 +51,15 @@ namespace Altkom.Net6.MinimalApi
                     return Results.Ok(customer);
             });
 
-            app.MapPost("/api/customers", (Customer customer, ICustomerRepository repository) =>
+            app.MapPost("/api/customers", (Customer customer, ICustomerRepository repository, IValidator<Customer> validator) =>
             {
+                var validationResult =  validator.Validate(customer);
+
+                if (!validationResult.IsValid)
+                {
+                    return Results.ValidationProblem(validationResult.ToDictionary());
+                }
+
                 repository.Add(customer);
 
                 // zła praktyka
