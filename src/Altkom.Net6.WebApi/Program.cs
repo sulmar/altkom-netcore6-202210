@@ -2,6 +2,9 @@ using Altkom.Net6.Domain;
 using Altkom.Net6.Domain.Validators;
 using Altkom.Net6.Infrastructure;
 using FluentValidation;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,11 +16,37 @@ builder.Services.AddScoped<IValidator<Customer>, CustomerValidator>();
 
 builder.Services.AddControllers();
 
+// dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
+
+var key = Encoding.UTF8.GetBytes(builder.Configuration["SecretKey"]);
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(key),
+            ValidateIssuer = true,
+            ValidIssuer = "http://myauthapi.com",
+            ValidateAudience = true,
+            ValidAudience = "http://myshopper.com"
+        };
+    });
+;
+
+builder.Services.AddAuthorization();
+
 var app = builder.Build();
 
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 // Warstwa poœrednia (Middleware)

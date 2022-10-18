@@ -1,5 +1,6 @@
 ﻿using Altkom.Net6.Domain;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
@@ -18,10 +19,15 @@ namespace Altkom.Net6.WebApi.Controllers
         }
 
         // GET api/customers
-
-        [HttpGet]
+        [Authorize]
+        [HttpGet]        
         public ActionResult<IEnumerable<Customer>> Get()
         {
+            if (!this.User.Identity.IsAuthenticated)
+            {
+                return Unauthorized();
+            }
+
             var customers = repository.Get();
 
             return Ok(customers);
