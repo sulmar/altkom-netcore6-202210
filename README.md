@@ -24,8 +24,8 @@
 
 ### Solution
 - ``` dotnet new sln ``` - utworzenie nowego rozwiązania
-- ``` dotnet sln {solution.sln} add {project.csproj}``` - dodanie projektu do rozwiązania
-- ``` dotnet sln {solution.sln} remove {project.csproj}``` - usunięcie projektu z rozwiązania
+- ``` dotnet sln add {folder}``` - dodanie projektu do rozwiązania
+- ``` dotnet sln remove {folder}``` - usunięcie projektu z rozwiązania
 
 ### Pobieranie konfiguracji
 ### Środowiska (deweloperskie, przejściowe, produkcyjne)
