@@ -31,6 +31,15 @@
 - ``` dotnet sln remove {project.csproj}``` - usunięcie projektu z rozwiązania
 
 ### Pobieranie konfiguracji
+
+#### Secret Keys 
+- ``` dotnet user-secrets init ``` - utworzenie sekretów
+- ``` dotnet user-secrets set "{key}" "{value}" ``` - ustawienie wartości klucza
+- ``` dotnet user-secrets list ``` - wyświetlenie listy kluczy i wartości
+- ``` dotnet user-secrets remove "{key}" ``` - usunięcie wskazanego klucza
+- ``` dotnet user-secrets clear ``` - usunięcie wszystkich kluczy
+
+
 ### Środowiska (deweloperskie, przejściowe, produkcyjne)
 ### Rejestrowanie logów
 ## Wstrzykiwanie zależności
